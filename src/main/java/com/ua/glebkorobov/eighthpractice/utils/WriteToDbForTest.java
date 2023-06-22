@@ -8,11 +8,9 @@ import com.ua.glebkorobov.eighthpractice.repositories.UserRepository;
 import com.ua.glebkorobov.eighthpractice.services.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.access.hierarchicalroles.RoleHierarchyUtils;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.Collection;
 import java.util.List;
 
 import static com.ua.glebkorobov.eighthpractice.dto.Status.PLANNED;
@@ -45,7 +43,7 @@ public class WriteToDbForTest {
     }
 
     @Bean
-    private void createUsersAndRoles(){
+    private void createUsersAndRoles() {
         Role role1 = new Role("ROLE_ADMIN");
         Role role2 = new Role("ROLE_USER");
 
