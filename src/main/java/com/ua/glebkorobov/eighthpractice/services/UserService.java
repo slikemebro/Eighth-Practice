@@ -3,7 +3,6 @@ package com.ua.glebkorobov.eighthpractice.services;
 import com.ua.glebkorobov.eighthpractice.entities.Role;
 import com.ua.glebkorobov.eighthpractice.entities.User;
 import com.ua.glebkorobov.eighthpractice.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,8 +17,11 @@ import java.util.stream.Collectors;
 @Service
 public class UserService implements UserDetailsService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public User findByUserName(String username) {
         return userRepository.findByName(username);

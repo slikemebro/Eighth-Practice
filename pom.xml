@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.ua.glebkorobov</groupId>
     <artifactId>Eighth-Practice</artifactId>
-    <version>0.0.1</version>
+    <version>1.0.0</version>
     <name>Eighth-Practice</name>
     <description>Eighth-Practice</description>
     <properties>

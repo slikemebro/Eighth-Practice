@@ -7,9 +7,11 @@ import com.ua.glebkorobov.eighthpractice.exceptions.InvalidStatusException;
 import com.ua.glebkorobov.eighthpractice.exceptions.NotFoundException;
 import com.ua.glebkorobov.eighthpractice.repositories.TodoRepository;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -18,7 +20,6 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,17 +27,20 @@ import java.util.Optional;
 @Log4j2
 public class TodoService {
 
-    @Autowired
-    private TodoRepository todoRepository;
+    private final TodoRepository todoRepository;
 
-    @Autowired
-    private MessageSource messageSource;
+    private final MessageSource messageSource;
+
+    public TodoService(TodoRepository todoRepository, MessageSource messageSource) {
+        this.todoRepository = todoRepository;
+        this.messageSource = messageSource;
+    }
 
 
-    public List<TodoEntity> getTodoList() {
-        List<TodoEntity> todoEntities = new ArrayList<>();
-        todoRepository.findAll().forEach(todoEntities::add);
-        return todoEntities;
+    public List<TodoEntity> getTodoList(int page, int size) {
+        Pageable pageOfElements = PageRequest.of(page, size);
+        Page<TodoEntity> entities = todoRepository.findAll(pageOfElements);
+        return entities.getContent();
     }
 
     public TodoEntity getOneTask(long id) {

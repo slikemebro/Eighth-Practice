@@ -6,7 +6,6 @@ import com.ua.glebkorobov.eighthpractice.entities.User;
 import com.ua.glebkorobov.eighthpractice.repositories.RoleRepository;
 import com.ua.glebkorobov.eighthpractice.repositories.UserRepository;
 import com.ua.glebkorobov.eighthpractice.services.TodoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
@@ -18,14 +17,17 @@ import static com.ua.glebkorobov.eighthpractice.dto.Status.PLANNED;
 @Component
 public class WriteToDbForTest {
 
-    @Autowired
-    TodoService service;
+    private final TodoService service;
 
-    @Autowired
-    RoleRepository roleRepository;
+    private final RoleRepository roleRepository;
 
-    @Autowired
-    UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public WriteToDbForTest(TodoService service, RoleRepository roleRepository, UserRepository userRepository) {
+        this.service = service;
+        this.roleRepository = roleRepository;
+        this.userRepository = userRepository;
+    }
 
     @Bean
     private void createTasks() {
