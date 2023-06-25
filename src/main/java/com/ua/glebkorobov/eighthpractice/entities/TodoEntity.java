@@ -16,7 +16,6 @@ import java.time.LocalDate;
 public class TodoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
     private Long id;
 
     @NotBlank(message = "{is_blank}")
